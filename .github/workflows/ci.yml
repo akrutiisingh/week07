@@ -1,8 +1,5 @@
 name: CI Pipeline
 
-env:
-  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: "true"
-  
 on:
   push:
     branches:
@@ -16,7 +13,7 @@ jobs:
   # =========================================================
   backend-test:
     name: Test ${{ matrix.service }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
@@ -82,10 +79,10 @@ jobs:
     steps:
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -106,7 +103,7 @@ jobs:
   # =========================================================
   build-and-push:
     name: Build and Push ${{ matrix.image }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
 
     # All backend tests must pass before this job starts
     needs:
@@ -141,10 +138,10 @@ jobs:
     steps:
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Login to Azure
-        uses: azure/login@v2.2.0
+        uses: azure/login@v3
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
