@@ -13,7 +13,7 @@ jobs:
   # =========================================================
   backend-test:
     name: Test ${{ matrix.service }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     strategy:
       fail-fast: false
@@ -103,7 +103,7 @@ jobs:
   # =========================================================
   build-and-push:
     name: Build and Push ${{ matrix.image }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     # All backend tests must pass before this job starts
     needs:
